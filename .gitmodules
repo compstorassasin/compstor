@@ -1,0 +1,6 @@
+[submodule "10x10-uap"]
+	path = 10x10-uap
+	url = git@bitbucket.org:achien7242/10x10-uap.git
+[submodule "src/main/c/jsmn"]
+	path = src/main/c/jsmn
+	url = git@github.com:zserge/jsmn.git

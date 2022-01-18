@@ -1,0 +1,23 @@
+[ {
+  "name" : "n_nationkey",
+  "required" : true,
+  "type" : 0,
+  "filters" : [ ]
+}, {
+  "name" : "n_name",
+  "required" : false,
+  "type" : 3,
+  "filters" : [ {
+    "8" : "GERMANY"
+  } ]
+}, {
+  "name" : "n_regionkey",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+}, {
+  "name" : "n_comment",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+} ]

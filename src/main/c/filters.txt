@@ -1,0 +1,33 @@
+0 nullptr
+
+1 Or
+
+2 EqualTo
+3 NotEqualTo
+4 GreaterThan
+5 GreaterThanOrEqual
+6 LessThan
+7 LessThanOrEqual
+
+8 EqualTo
+9 NotEqualTo
+10 GreaterThan
+11 GreaterThanOrEqual
+12 LessThan
+13 LessThanOrEqual
+14 StringStartsWith
+15 NotStringStartsWith
+16 StringEndsWith
+17 NotStringEndsWith
+18 StringContains
+19 NotStringContains
+
+0 int
+1 date
+2 decimal
+3 str
+4 scanner
+
+
+{"Or", "EqualTo", "NotEqualTo", "GreaterThan", "GreaterThanOrEqual", "LessThan", "LessThanOrEqual", "StringStartsWith", "NotStringStartsWith", "StringEndsWith", "NotStringEndsWith", "StringContains", "NotStringContains"};
+{"int", "date", "decimal", "str"};

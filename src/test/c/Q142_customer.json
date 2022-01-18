@@ -1,0 +1,59 @@
+[ {
+  "name" : "c_custkey",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+}, {
+  "name" : "c_name",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+}, {
+  "name" : "c_address",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+}, {
+  "name" : "c_nationkey",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+}, {
+  "name" : "c_phone",
+  "required" : false,
+  "type" : 3,
+  "filters" : [ {
+    "1" : [ {
+      "14" : "13"
+    }, {
+      "14" : "31"
+    }, {
+      "14" : "23"
+    }, {
+      "14" : "29"
+    }, {
+      "14" : "30"
+    }, {
+      "14" : "18"
+    }, {
+      "14" : "17"
+    } ]
+  } ]
+}, {
+  "name" : "c_acctbal",
+  "required" : true,
+  "type" : 2,
+  "filters" : [ {
+    "4" : 0
+  } ]
+}, {
+  "name" : "c_mktsegment",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+}, {
+  "name" : "c_comment",
+  "required" : false,
+  "filters" : [ ],
+  "type" : 4
+} ]

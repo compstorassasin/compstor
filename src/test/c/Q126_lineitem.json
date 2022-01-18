@@ -1,0 +1,91 @@
+[ {
+    "name" : "l_orderkey",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_partkey",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_suppkey",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_linenumber",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_quantity",
+    "required" : false,
+    "type" : 2,
+    "filters" : [ {
+      "6" : 2400
+    } ]
+  }, {
+    "name" : "l_extendedprice",
+    "required" : true,
+    "type" : 2,
+    "filters" : [ ]
+  }, {
+    "name" : "l_discount",
+    "required" : true,
+    "type" : 2,
+    "filters" : [ {
+      "5" : 5
+    }, {
+      "7" : 7
+    } ]
+  }, {
+    "name" : "l_tax",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_returnflag",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_linestatus",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_shipdate",
+    "required" : false,
+    "type" : 1,
+    "filters" : [ {
+      "5" : 8766
+    }, {
+      "6" : 9131
+    } ]
+  }, {
+    "name" : "l_commitdate",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_receiptdate",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_shipinstruct",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_shipmode",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  }, {
+    "name" : "l_comment",
+    "required" : false,
+    "filters" : [ ],
+    "type" : 4
+  } ]
