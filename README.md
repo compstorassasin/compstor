@@ -15,10 +15,10 @@ to computational SSDs modeled with Gem5.
 * [gem5](https://github.com/compstorassasin/gem5) at `$HOME/gem5` with compiled `$HOME/gem5/build/RISCV/gem5.opt`
 * [spark-3.1.2-bin-hadoop3.2](https://spark.apache.org/downloads.html) at repo root directory `$COMPSTOR`.
 * TPC-H datasets with SF=10 at `$COMPSTOR/tpch/tbl_s1e1_data`
-* (optional) MQSim(https://github.com/compstorassasin/MQSim) for retiming gem5-generated page traces.
+* (optional) [MQSim](https://github.com/compstorassasin/MQSim) for retiming gem5-generated page traces.
 
 ## Usage
-* `. setup_env.sh`
+* `. setup_env.sh` for $COMPSTOR
 * `sbt package` at root directory first to compile Spark implementation of TPC-H.
 * `cd $COMPSTOR/src/main/c && make release`
 * `python3 $COMPSTOR/src/main/python3/tpch_partitioner.py`
