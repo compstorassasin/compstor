@@ -35,17 +35,29 @@ bool (*riscv_filters[])(riscv_table_reader*, filter_desp*) = {
     str_StringContains,
     str_NotStringContains};
 
-riscv_table_reader* riscv_table_reader_init(const char* path,
-                                            const char* json) {
-  riscv_table_reader* reader =
-      (riscv_table_reader*)malloc(sizeof(riscv_table_reader));
+riscv_table_reader* riscv_table_reader_init(const char* path, const char* json,
+                                            riscv_table_reader* reader,
+                                            char* input_buffer) {
+  if (!reader) {
+    reader = (riscv_table_reader*)malloc(sizeof(riscv_table_reader));
+    reader->free_reader = true;
+  } else {
+    reader->free_reader = false;
+  }
   {
     FILE* file = fopen(path, "rb");
     fseek(file, 0L, SEEK_END);
     register int bytes = ftell(file);
     rewind(file);
 
-    reader->input_buffer = (char*)malloc(bytes);
+    if (!input_buffer) {
+      reader->input_buffer = (char*)malloc(bytes);
+      reader->free_input_buffer = true;
+    } else {
+      reader->input_buffer = input_buffer;
+      reader->free_input_buffer = false;
+    }
+
     register int rbytes = fread(reader->input_buffer, 1, bytes, file);
     fclose(file);
     printf("ibytes %d\n", bytes);
@@ -224,12 +236,12 @@ int riscv_table_reader_next_batch(riscv_table_reader* reader, char* output) {
     }
   }
 
-  printf("obytes %d\n", output - output_ref);
+  printf("obytes %ld\n", output - output_ref);
   riscv_table_reader_close(reader);
   return rows;
 }
 
 void riscv_table_reader_close(riscv_table_reader* reader) {
-  free(reader->input_buffer);
-  free(reader);
+  if (reader->free_input_buffer) free(reader->input_buffer);
+  if (reader->free_reader) free(reader);
 }

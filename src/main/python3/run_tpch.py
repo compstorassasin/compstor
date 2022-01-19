@@ -13,9 +13,9 @@ def run_query(qid):
     DIR = os.path.dirname(os.path.realpath(__file__))
     COMPSTOR = os.getenv("COMPSTOR")
 
-    SPARK_MASTER_URL = "--master local[4]".split()
-    CORE_MEM_CONF = ("--driver-memory 4g --executor-memory 4g "
-                     "--executor-cores 4 --conf spark.executor.memory=4g "
+    SPARK_MASTER_URL = "--master local[32]".split()
+    CORE_MEM_CONF = ("--driver-memory 32g --executor-memory 64g "
+                     "--executor-cores 32 --conf spark.executor.memory=64g "
                      "--conf spark.sql.broadcastTimeout=1000").split()
     STRING_TRUNCATE_LIMIT = (
         "--conf spark.sql.debug.maxToStringFields=10000 "
@@ -70,17 +70,13 @@ def run_query(qid):
                            stdout=fout,
                            stderr=ferr,
                            env={
-                               "DEVICE": DEVICE,
-                               "XCLBIN": XCLBIN,
                                "JAVA_HOME": os.getenv("JAVA_HOME"),
                                "HOME": os.getenv("HOME"),
                                "COMPSTOR": os.getenv("COMPSTOR"),
                                "PYTHONPATH": os.getenv("PYTHONPATH"),
-                               "XILINX_XRT": XILINX_XRT,
                            })
     time.sleep(1)
     os.system("mv /tmp/*.json %s" % qid_dir)
-    os.system("mv /tmp/*.program %s" % qid_dir)
     os.system("mv %s/*.csv %s" % (FLAGS.output_dir, qid_dir))
 
 
@@ -98,13 +94,13 @@ def main(argv):
     os.chdir(FLAGS.output_dir)
     if FLAGS.qid is None:
         if FLAGS.tbl_source:
-            for qid in range(61, 83):
+            for qid in range(76, 98):
                 run_query(qid)
         elif FLAGS.riscv_source:
-            for qid in range(121, 143):
+            for qid in range(51, 73):
                 run_query(qid)
         else:
-            for qid in range(91, 113):
+            for qid in range(1, 23):
                 run_query(qid)
     else:
         run_query(FLAGS.qid)

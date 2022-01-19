@@ -30,6 +30,8 @@ struct _riscv_table_reader {
   int rfields;
   int bytes;
   char* input_buffer;
+  bool free_reader;
+  bool free_input_buffer;
   const char* input;
 
   char* row_null;
@@ -38,7 +40,9 @@ struct _riscv_table_reader {
   int second_int;
 };
 
-riscv_table_reader* riscv_table_reader_init(const char* path, const char* json);
+riscv_table_reader* riscv_table_reader_init(const char* path, const char* json,
+                                            riscv_table_reader* reader,
+                                            char* input_buffer);
 int riscv_table_reader_next_batch(riscv_table_reader* reader, char* output);
 void riscv_table_reader_close(riscv_table_reader* reader);
 

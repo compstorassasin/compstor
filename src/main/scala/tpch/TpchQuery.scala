@@ -11,7 +11,7 @@ import scala.collection.mutable.ListBuffer
   * Parent class for TPC-H queries.
   *
   * Savvas Savvides <savvas@purdue.edu> Orignally wrote
-  * Chen Zou <chenzou@uchicago.edu> refactored
+  * ASSASIN authors refactored
   *
   */
 abstract class TpchQuery {
@@ -36,11 +36,11 @@ object TpchQuery {
 
   def printUsage(): Unit = {
       println(f"Usage of ${this.getClass.getName}: <inputDir> <outputDir> <queryNum>")
-      println(f"    <queryNum> should be 1~22 for querying on parquet source")
-      println(f"    <queryNum> should be 31~52 for table slice dump before shuffling")
-      println(f"    <queryNum> should be 61~82 for querying on csv source")
       println(f"    <queryNum> should be 0 to do csv->parquet conversion")
-      println(f"    <queryNum> should be 120~142 for querying on riscvstorage tbl source")
+      println(f"    <queryNum> should be 1~22 for querying on parquet source")
+      println(f"    <queryNum> should be 26~47 for table slice dump before shuffling")
+      println(f"    <queryNum> should be 50~72 for querying on riscvstorage tbl source")
+      println(f"    <queryNum> should be 76~97 for querying on csv source")
 
   }
 
@@ -54,7 +54,7 @@ object TpchQuery {
     val pathStrings = this.getClass.getName.split("\\.").dropRight(1)
 
     val t0 = System.nanoTime()
-    val qid = queryNum % 30
+    val qid = queryNum % 25
     val qidName = f"Q${qid}%02d"
     val pathStrs = pathStrings :+ qidName
     val query = Class
@@ -82,15 +82,15 @@ object TpchQuery {
     val outputDir = "file://" + new File(args(1)).getAbsolutePath()
     val arg2_int = args(2).toInt
 
-    if (!(arg2_int == 0 || ((arg2_int % 30) > 0 && (arg2_int % 30 < 23)))) {
+    if (!(arg2_int == 0 || ((arg2_int % 25) > 0 && (arg2_int % 25 < 23)))) {
       printUsage
       return
     }
 
     val queryNum = arg2_int
-    val useParquetTable = arg2_int < 60
-    val useRISCVTable = arg2_int > 120 && arg2_int < 143
-    val dumpIntermidiate = arg2_int > 30 && arg2_int < 53
+    val useParquetTable = arg2_int < 50
+    val dumpIntermidiate = arg2_int > 25 && arg2_int < 48
+    val useRISCVTable = arg2_int > 50 && arg2_int < 73
 
     val ss = SparkSession.builder().appName("TPC-H Q" + queryNum.toString).getOrCreate()
 

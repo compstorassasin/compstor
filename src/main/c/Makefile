@@ -7,18 +7,18 @@ SRCS = $(SRC_SRCS) $(TEST_SRCS)
 OBJS = $(SRC_OBJS) $(TEST_OBJS)
 
 INCLUDE = -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
-
-CFLAGS = -g -Wall -fPIC $(INCLUDE) -march=native -std=c11
+ARCH ?= -march=core2
+CFLAGS = -g -Wall -fPIC $(INCLUDE) $(ARCH) -std=c11
 TARGET = ../../../lib/libriscv.so
 
-default : OPT = -O2
-default : $(TARGET)
+all : OPT = -O2
+all : $(TARGET)
 
 release : OPT = -O3
 release : CFLAGS += -D NDEBUG
 release : $(TARGET)
 
-debug : OPT = -O0
+debug : OPT = -Og
 debug : CFLAGS+= -D DEBUG
 debug : $(TARGET)
 

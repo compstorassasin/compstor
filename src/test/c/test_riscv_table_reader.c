@@ -24,15 +24,17 @@ int check_output(char* output, int rows, int min_row_bytes, int max_row_bytes) {
   return bytes;
 }
 
-void Q126_lineitem() {
+void Q56_lineitem() {
+  printf("Q56_lineitem ...\n");
   char path[256];
   strcpy(path, getenv("COMPSTOR"));
   int len = strlen(path);
   strcpy(path + len, "/tpch/tbl_s1e1/lineitem/00001.tbl");
 
   char json[4096];
-  FILE* ji = fopen("Q126_lineitem.json", "rb");
+  FILE* ji = fopen("Q56_lineitem.json", "rb");
   int bytes = fread(json, 1, 4096, ji);
+  assert(bytes < 4095);
   json[bytes] = 0;
   void* reader = riscv_create_reader(path, json);
 
@@ -40,17 +42,20 @@ void Q126_lineitem() {
   int rows = riscv_next_batch(reader, output);
   bytes = check_output(output, rows, 16, 0);
   printf("rows: %d, bytes: %d\n", rows, bytes);
+  printf("\n");
 }
 
-void Q131_nation() {
+void Q61_nation() {
+  printf("Q61_nation ...\n");
   char path[256];
   strcpy(path, getenv("COMPSTOR"));
   int len = strlen(path);
   strcpy(path + len, "/tpch/tbl_s1e1/nation/00000.tbl");
 
   char json[4096];
-  FILE* ji = fopen("Q131_nation.json", "rb");
+  FILE* ji = fopen("Q61_nation.json", "rb");
   int bytes = fread(json, 1, 4096, ji);
+  assert(bytes < 4095);
   json[bytes] = 0;
   void* reader = riscv_create_reader(path, json);
 
@@ -58,17 +63,20 @@ void Q131_nation() {
   int rows = riscv_next_batch(reader, output);
   bytes = check_output(output, rows, 8, 8);
   printf("rows: %d, bytes: %d\n", rows, bytes);
+  printf("\n");
 }
 
-void Q142_customer() {
+void Q72_customer() {
+  printf("Q72_customer ...\n");
   char path[256];
   strcpy(path, getenv("COMPSTOR"));
   int len = strlen(path);
   strcpy(path + len, "/tpch/tbl_s1e1/customer/00001.tbl");
 
   char json[4096];
-  FILE* ji = fopen("Q142_customer.json", "rb");
+  FILE* ji = fopen("Q72_customer.json", "rb");
   int bytes = fread(json, 1, 4096, ji);
+  assert(bytes < 4095);
   json[bytes] = 0;
   void* reader = riscv_create_reader(path, json);
 
@@ -76,10 +84,11 @@ void Q142_customer() {
   int rows = riscv_next_batch(reader, output);
   bytes = check_output(output, rows, 8, 8);
   printf("rows: %d, bytes: %d\n", rows, bytes);
+  printf("\n");
 }
 
 int main() {
-  Q126_lineitem();
-  Q131_nation();
-  Q142_customer();
+  Q56_lineitem();
+  Q61_nation();
+  Q72_customer();
 }

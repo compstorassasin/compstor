@@ -81,7 +81,7 @@ if __name__ == "__main__":
         os.path.join(os.getenv("COMPSTOR"), "tpch", "tbl_s1e1_data"),
         "directory holding the tables")
     flags.DEFINE_string("table_re", "(\w+)\.tbl", "table re")
-    flags.DEFINE_integer("part_size", 512 << 20, "part size")
+    flags.DEFINE_integer("part_size", 128 << 20, "part size")
     flags.DEFINE_integer("block_size", 256, "block size")
     flags.DEFINE_string("sep", "\n", "seperator")
     app.run(main)

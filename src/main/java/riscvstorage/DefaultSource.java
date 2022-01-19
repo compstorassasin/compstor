@@ -127,6 +127,7 @@ class RISCVScanBuilder implements ScanBuilder, SupportsPushDownFilters, Supports
         ArrayList<Filter> supported = new ArrayList<>();
         for (Filter filter : filters) {
             if (testFilter(filter)) {
+                Logger.getLogger("riscvstorage.DefaultSource").info("Supported filter: " + JsonMethods$.MODULE$.asJsonNode(FiltersJson$.MODULE$.jsonValue(filter)).toString());
                 supported.add(filter);
             } else {
                 unsupported.add(filter);
@@ -219,6 +220,7 @@ class RISCVBatchScan implements Scan, Batch, SupportsReportPartitioning {
             filterIds.put(s, id);
         }
 
+        boolean isinteger = typeStrs_[typeId].equals("integer");
         boolean isdate = typeStrs_[typeId].equals("date");
         boolean isdecimal = typeStrs_[typeId].equals("decimal");
         boolean isstring = typeStrs_[typeId].equals("string");
@@ -240,6 +242,10 @@ class RISCVBatchScan implements Scan, Batch, SupportsReportPartitioning {
                 float f = Float.valueOf(fnode.get("value").textValue());
                 fnode.remove("value");
                 fnode.put("value", Math.round(100 * f));
+            } else if (isinteger) {
+                Integer i = Integer.valueOf(fnode.get("value").textValue());
+                fnode.remove("value");
+                fnode.put("value", i);
             }
             String type = filter instanceof Not ? "Not" + fnode.get("type").textValue() : fnode.get("type").textValue();
             fo.set(String.valueOf(filterIds.get(type) + (isstring ? strFilterIdOffset_ : 0)), fnode.get("value"));
@@ -365,8 +371,9 @@ class RISCVPartitionReader implements PartitionReader<InternalRow> {
         }
         numOutputFields_ = numOutputFields;
         String fieldsStr = fieldsNode.toPrettyString();
+        String hashStr = Integer.toUnsignedString(fieldsStr.hashCode());
         assert (path.startsWith(filePrefix));
-        String jsonPath = System.getProperty("java.io.tmpdir") + "/" + Integer.toUnsignedString(fieldsStr.hashCode()) + ".json";
+        String jsonPath = System.getProperty("java.io.tmpdir") + "/" + hashStr + ".json";
         File f = new File(jsonPath);
         try {
             FileWriter fw = new FileWriter(f);
@@ -377,10 +384,10 @@ class RISCVPartitionReader implements PartitionReader<InternalRow> {
         }
 
         Instant reader_start = Instant.now();
-        Logger.getLogger("riscvstorage.DefaultSource").debug("Creating a reader @" + path);
+        Logger.getLogger("riscvstorage.DefaultSource").info("Creating a reader for " + hashStr + " @" + path);
         riscvReaderPtr_ = riscv_create_reader(path.substring(filePrefix.length()), fieldsStr);
         Logger.getLogger("riscvstorage.DefaultSource").debug("Created a reader with ptr=0x" + Long.toHexString(riscvReaderPtr_) + " @" + path + "\n" + fieldsStr + "\n");
-        Logger.getLogger("riscvstorage.DefaultSource").info("Created a reader with ptr=0x" + Long.toHexString(riscvReaderPtr_) + " @" + path);
+        Logger.getLogger("riscvstorage.DefaultSource").info("Created a reader with ptr=0x" + Long.toHexString(riscvReaderPtr_) + " for " + hashStr + " @" + path);
         riscvFinished_ = false;
         rows_ = new LinkedList<UnsafeRow>();
 
