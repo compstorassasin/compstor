@@ -1,8 +1,0 @@
-{
-    "impl": "sim",
-    "num_lanes": 32,
-    "lane_words": 16384,
-    "program_words": 4096,
-    "qsize": 16,
-    "sb_bytes": 32768
-}
