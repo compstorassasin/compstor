@@ -88,7 +88,7 @@ object TpchQuery {
     }
 
     val queryNum = arg2_int
-    val useParquetTable = arg2_int < 50
+    val useParquetTable = arg2_int > 0 && arg2_int < 50
     val dumpIntermidiate = arg2_int > 25 && arg2_int < 48
     val useRISCVTable = arg2_int > 50 && arg2_int < 73
 

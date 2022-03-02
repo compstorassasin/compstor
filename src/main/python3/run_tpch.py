@@ -32,8 +32,7 @@ def run_query(qid):
                      COMPSTOR).split()
     DEBUG_CONF = (
         "--conf spark.driver.extraJavaOptions=-agentlib:"
-        "jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
-    ).split()
+        "jdwp=transport=dt_socket,server=y,suspend=y,address=5005").split()
 
     command = [
         "%s/spark-3.1.2-bin-hadoop3.2/bin/spark-submit" % COMPSTOR, "--class",
@@ -93,7 +92,9 @@ def main(argv):
         os.mkdir(FLAGS.output_dir)
     os.chdir(FLAGS.output_dir)
     if FLAGS.qid is None:
-        if FLAGS.tbl_source:
+        if FLAGS.tbl2parquet:
+            run_query(0)
+        elif FLAGS.tbl_source:
             for qid in range(76, 98):
                 run_query(qid)
         elif FLAGS.riscv_source:
@@ -114,6 +115,10 @@ if __name__ == "__main__":
     flags.DEFINE_bool("debug", False, "Debug", short_name="d")
     flags.DEFINE_bool("tbl_source", False, "table source", short_name="t")
     flags.DEFINE_bool("riscv_source", False, "riscv source", short_name="r")
+    flags.DEFINE_bool("tbl2parquet",
+                      False,
+                      "tbl to parquet conversion",
+                      short_name="p")
     flags.DEFINE_integer("qid", None, "Query id", short_name="q")
     flags.DEFINE_string("input_dir",
                         os.path.join(os.getenv("COMPSTOR"), "tpch",
