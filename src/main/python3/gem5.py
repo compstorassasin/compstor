@@ -60,7 +60,7 @@ def main(argv):
         dsuffix += "_noscratchpad"
     else:
         scratchpad = "--scratchpad --scratchpad_trace"
-        scratchpad_addr = 1099511627776
+        scratchpad_addr = 0x10000000000
         dsuffix += "_scratchpad"
 
     if not flags.FLAGS.streambuffer:
@@ -69,7 +69,7 @@ def main(argv):
         dsuffix += "_nostreambuffer"
     else:
         streambuffer = "--streambuffer --streambuffer_trace"
-        streambuffer_addr = 1100585369600
+        streambuffer_addr = 0x10040000000
         dsuffix += "_streambuffer"
 
     if not flags.FLAGS.prefetch:
